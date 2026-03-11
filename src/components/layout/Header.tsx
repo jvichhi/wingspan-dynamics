@@ -14,6 +14,7 @@ import {
   Tag,
   User,
   Clock,
+  LayoutDashboard,
 } from "lucide-react";
 
 const navItems = [
@@ -50,6 +51,7 @@ const navItems = [
 ];
 
 const accountMenuItems = [
+  { label: "Digital Interaction Room", href: "/digital-interaction-room", icon: LayoutDashboard, highlight: true },
   { label: "Order History", href: "/orders", icon: Package },
   { label: "Invoices", href: "/invoices", icon: Receipt },
   { label: "Contracts", href: "/contracts", icon: FileSignature },
@@ -178,7 +180,17 @@ export default function Header() {
                 </div>
                 {accountMenuItems.map((item) => {
                   const Icon = item.icon;
-                  return (
+                  return item.highlight ? (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold mx-2 mb-1 rounded-lg"
+                      style={{ backgroundColor: "#1C2B3A", color: "#fff" }}
+                    >
+                      <Icon size={15} className="opacity-80" />
+                      {item.label}
+                    </Link>
+                  ) : (
                     <Link
                       key={item.label}
                       href={item.href}
