@@ -4,8 +4,9 @@ import { mockOrders } from "@/lib/mock-data/orders";
 import { formatPrice } from "@/components/ui/ProductCard";
 import { CheckCircle, Package, Truck, FileText } from "lucide-react";
 
-export default function OrderConfirmationPage({ params }: { params: { id: string } }) {
-  const order = mockOrders.find((o) => o.id === params.id) || mockOrders[0];
+export default async function OrderConfirmationPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const order = mockOrders.find((o) => o.id === id) || mockOrders[0];
 
   return (
     <div className="bg-gray-50 min-h-screen">

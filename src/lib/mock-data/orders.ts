@@ -48,7 +48,7 @@ export const mockOrders: Order[] = [
       {
         productId: "agri-t15-irrigation-attachment",
         name: "Agri T15 Irrigation attachment",
-        image: "https://images.unsplash.com/photo-1581093804475-577d72e35a2f?w=200&q=80",
+        image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&q=80",
         category: "Accessories",
         attributes: {
           Compatibility: "AgriScout A6 Series",
@@ -61,7 +61,7 @@ export const mockOrders: Order[] = [
       {
         productId: "ertc-700-controller-dual",
         name: "ERTC-700 controller Dual with touchscreen",
-        image: "https://images.unsplash.com/photo-1596566791891-695c72c98ce0?w=200&q=80",
+        image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=200&q=80",
         category: "Controllers",
         attributes: {
           Compatibility: "AgriScout A6 Series",

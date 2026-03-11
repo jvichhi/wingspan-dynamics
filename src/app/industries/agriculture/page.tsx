@@ -8,12 +8,12 @@ import { ChevronDown, ChevronUp, LayoutGrid, List, X } from "lucide-react";
 
 const categories = [
   { name: "Drones", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "Attachments", image: "https://images.unsplash.com/photo-1581093804475-577d72e35a2f?w=120&q=80" },
+  { name: "Attachments", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=120&q=80" },
   { name: "Batteries", image: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=120&q=80" },
   { name: "Sensors", image: "https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=120&q=80" },
   { name: "Replacements", image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=120&q=80" },
-  { name: "Remotes", image: "https://images.unsplash.com/photo-1596566791891-695c72c98ce0?w=120&q=80" },
-  { name: "Cameras", image: "https://images.unsplash.com/photo-1589872307379-0ffdf9a34b8f?w=120&q=80" },
+  { name: "Remotes", image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=120&q=80" },
+  { name: "Cameras", image: "https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?w=120&q=80" },
   { name: "Cargo containers", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=120&q=80" },
 ];
 

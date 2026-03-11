@@ -36,7 +36,7 @@ const offers = [
     title: "Agri T15 Starter Bundle",
     description:
       "Get the Agri T15 Sprayer, Irrigation Attachment, and High-Capacity Spray Tank together. Save $4,500 off individual pricing.",
-    image: "https://images.unsplash.com/photo-1581093804475-577d72e35a2f?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=80",
     productId: "agri-t15-sprayer",
     originalPrice: 58783,
     discountedPrice: 54283,
