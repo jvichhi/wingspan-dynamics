@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ProductCard from "@/components/ui/ProductCard";
 import { getFeaturedProducts, getBestSellers } from "@/lib/mock-data/products";
-import { ChevronRight, ChevronLeft, Tag, Truck, HeadphonesIcon, ArrowRight } from "lucide-react";
+import { ChevronRight, ChevronLeft, Tag, Truck, HeadphonesIcon, ArrowRight, ShoppingCart, FileText, FileSignature, Building2 } from "lucide-react";
 
 const categories = [
   { name: "Drones", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80", href: "/industries/agriculture" },
@@ -32,28 +32,28 @@ export default function HomePage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/order-confirmation/ord-0000000001"
-              className="flex items-center gap-2 bg-white bg-opacity-10 hover:bg-opacity-20 border border-white border-opacity-30 px-4 py-2 rounded text-sm font-medium transition-colors"
+              href="/orders"
+              className="flex items-center gap-2 bg-white hover:bg-gray-100 border border-gray-300 px-5 py-2 rounded-full text-sm font-medium text-gray-800 transition-colors shadow-sm"
             >
-              <span>📋</span> Orders
+              <ShoppingCart size={15} className="text-gray-700" /> Orders
+            </Link>
+            <Link
+              href="/invoices"
+              className="flex items-center gap-2 bg-white hover:bg-gray-100 border border-gray-300 px-5 py-2 rounded-full text-sm font-medium text-gray-800 transition-colors shadow-sm"
+            >
+              <FileText size={15} className="text-gray-700" /> Invoices
+            </Link>
+            <Link
+              href="/contracts"
+              className="flex items-center gap-2 bg-white hover:bg-gray-100 border border-gray-300 px-5 py-2 rounded-full text-sm font-medium text-gray-800 transition-colors shadow-sm"
+            >
+              <FileSignature size={15} className="text-gray-700" /> Contracts
             </Link>
             <Link
               href="#"
-              className="flex items-center gap-2 bg-white bg-opacity-10 hover:bg-opacity-20 border border-white border-opacity-30 px-4 py-2 rounded text-sm font-medium transition-colors"
+              className="flex items-center gap-2 bg-white hover:bg-gray-100 border border-gray-300 px-5 py-2 rounded-full text-sm font-medium text-gray-800 transition-colors shadow-sm"
             >
-              <span>🧾</span> Invoices
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 bg-white bg-opacity-10 hover:bg-opacity-20 border border-white border-opacity-30 px-4 py-2 rounded text-sm font-medium transition-colors"
-            >
-              <span>📄</span> Contracts
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 bg-white bg-opacity-10 hover:bg-opacity-20 border border-white border-opacity-30 px-4 py-2 rounded text-sm font-medium transition-colors"
-            >
-              <span>🏢</span> B2B Account Center
+              <Building2 size={15} className="text-gray-700" /> B2B Account Center
             </Link>
           </div>
         </div>
