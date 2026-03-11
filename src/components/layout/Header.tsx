@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   ShoppingCart,
@@ -57,11 +57,31 @@ const accountMenuItems = [
   { label: "Order Confirmation", href: "/order-confirmation/ord-0000000001", icon: Clock },
 ];
 
+const NINE_HOURS = 9 * 60 * 60; // 9 hours in seconds
+
+function formatCountdown(seconds: number) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(NINE_HOURS);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const cartCount = 3;
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -74,7 +94,7 @@ export default function Header() {
           <button className="opacity-60 hover:opacity-100">‹</button>
           <button className="opacity-60 hover:opacity-100">›</button>
           <span>
-            <span className="font-semibold">09:13:48</span> Left till today&apos;s special deal
+            <span className="font-semibold">{formatCountdown(timeLeft)}</span> Left till today&apos;s special deal
             ends! —{" "}
             <Link href="/offers" className="underline font-semibold hover:text-orange-300">
               Buy Now
