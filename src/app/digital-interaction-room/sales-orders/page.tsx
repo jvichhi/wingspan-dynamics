@@ -1,86 +1,27 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Search, Filter, ChevronRight, Truck } from "lucide-react";
+import { dirOrders } from "@/lib/mock-data/dir-orders";
 
-const orders = [
-  {
-    id: "#5432000128",
-    date: "Jan 22, 2025",
-    product: "SKYSTREAM Pro System 16 + Accessories",
-    source: "Purchased Online",
-    qty: 3,
-    total: 16250.0,
-    status: "Shipped",
-    statusColor: "text-blue-600",
-    delivery: "In Transit",
-    deliveryNote: "First expected delivery: Jan 25, 2025",
-    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80",
-  },
-  {
-    id: "#5432000127",
-    date: "Jan 18, 2025",
-    product: "SkyFlow Ranger 2000 - Commercial Unit",
-    source: "Purchased Online",
-    qty: 1,
-    total: 24900.0,
-    status: "In Progress",
-    statusColor: "text-orange-500",
-    delivery: null,
-    deliveryNote: null,
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80",
-  },
-  {
-    id: "#5432000126",
-    date: "Jan 10, 2025",
-    product: "Precision Elite Package + Flight Controller",
-    source: "Purchased Online",
-    qty: 2,
-    total: 8750.0,
-    status: "Delivered",
-    statusColor: "text-gray-400",
-    delivery: null,
-    deliveryNote: null,
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=120&q=80",
-  },
-  {
-    id: "#5432789126",
-    date: "Jan 5, 2025",
-    product: "AirPatrol X8 Surveillance Bundle",
-    source: "Purchased Online",
-    qty: 4,
-    total: 31200.0,
-    status: "Delivered",
-    statusColor: "text-gray-400",
-    delivery: null,
-    deliveryNote: null,
-    image: "https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=120&q=80",
-  },
-  {
-    id: "#5432000125",
-    date: "Dec 28, 2024",
-    product: "SkyStream Industrial 5000 Fleet Kit",
-    source: "Purchased Online",
-    qty: 2,
-    total: 42500.0,
-    status: "Delivered",
-    statusColor: "text-gray-400",
-    delivery: null,
-    deliveryNote: null,
-    image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=120&q=80",
-  },
-];
+const statusColorMap: Record<string, string> = {
+  Shipped: "text-blue-600",
+  "In Progress": "text-orange-500",
+  Delivered: "text-gray-400",
+  Cancelled: "text-red-500",
+};
 
-const statusOptions = ["All Status", "Shipped", "In Progress", "Delivered"];
+const statusOptions = ["All Status", "Shipped", "In Progress", "Delivered", "Cancelled"];
 
 export default function SalesOrdersPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All Status");
 
-  const filtered = orders.filter((o) => {
+  const filtered = dirOrders.filter((o) => {
     const matchSearch =
-      o.id.toLowerCase().includes(search.toLowerCase()) ||
-      o.product.toLowerCase().includes(search.toLowerCase());
+      o.displayId.toLowerCase().includes(search.toLowerCase()) ||
+      o.groups.some((g) => g.items.some((i) => i.name.toLowerCase().includes(search.toLowerCase())));
     const matchStatus = statusFilter === "All Status" || o.status === statusFilter;
     return matchSearch && matchStatus;
   });
@@ -125,60 +66,67 @@ export default function SalesOrdersPage() {
 
       {/* Order List */}
       <div className="flex flex-col gap-4">
-        {filtered.map((order) => (
-          <div
-            key={order.id}
-            className="bg-white rounded-xl border border-gray-200 overflow-hidden"
-          >
-            {/* Order Header */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-semibold text-gray-700">Order ID:</span>
-                <span className="text-sm font-bold text-blue-600">{order.id}</span>
-                <span className="text-xs text-gray-400">Order Date: {order.date}</span>
-              </div>
-              <span className={`text-sm font-semibold ${order.statusColor}`}>
-                {order.status}
-              </span>
-            </div>
+        {filtered.map((order) => {
+          const firstItem = order.groups[0]?.items[0];
+          const totalQty = order.groups.reduce((s, g) => s + g.items.reduce((ss, i) => ss + i.qty, 0), 0);
+          const shipGroup = order.groups.find((g) => g.status === "Shipped");
 
-            {/* Order Body */}
-            <div className="px-5 py-4 flex items-start gap-4">
-              <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative border border-gray-100">
-                <Image
-                  src={order.image}
-                  alt={order.product}
-                  fill
-                  className="object-cover"
-                />
+          return (
+            <div key={order.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              {/* Order Header */}
+              <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-semibold text-gray-700">Order ID:</span>
+                  <span className="text-sm font-bold text-blue-600">{order.displayId}</span>
+                  <span className="text-xs text-gray-400">Order Date: {order.placedDate}</span>
+                </div>
+                <span className={`text-sm font-semibold ${statusColorMap[order.status] ?? "text-gray-500"}`}>
+                  {order.status}
+                </span>
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-bold text-gray-800">{order.product}</p>
-                <p className="text-xs text-gray-400 mt-0.5">{order.source}</p>
-                <p className="text-xs text-gray-400">
-                  Ordered Item <span className="font-semibold text-gray-700">{order.qty}</span>
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-base font-bold" style={{ color: "#1C2B3A" }}>
-                  ${order.total.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-                </p>
-                <button className="text-xs text-blue-600 hover:underline flex items-center gap-1 ml-auto mt-1">
-                  View Details <ChevronRight size={12} />
-                </button>
-              </div>
-            </div>
 
-            {/* Delivery Banner */}
-            {order.delivery && (
-              <div className="mx-5 mb-4 flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-lg px-4 py-2.5">
-                <Truck size={16} className="text-blue-500 flex-shrink-0" />
-                <span className="text-xs font-semibold text-blue-700">{order.delivery}</span>
-                <span className="text-xs text-gray-500">{order.deliveryNote}</span>
+              {/* Order Body */}
+              <div className="px-5 py-4 flex items-start gap-4">
+                {firstItem && (
+                  <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative border border-gray-100">
+                    <Image src={firstItem.image} alt={firstItem.name} fill className="object-cover" />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-gray-800">
+                    {firstItem?.name ?? "—"}
+                    {order.groups.reduce((s, g) => s + g.items.length, 0) > 1 &&
+                      ` + ${order.groups.reduce((s, g) => s + g.items.length, 0) - 1} more`}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-0.5">{order.groups[0]?.items[0]?.attributes[0]?.value ?? "Purchased Online"}</p>
+                  <p className="text-xs text-gray-400">
+                    Ordered Items: <span className="font-semibold text-gray-700">{totalQty}</span>
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-base font-bold" style={{ color: "#1C2B3A" }}>
+                    ${order.total.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                  </p>
+                  <Link
+                    href={`/digital-interaction-room/sales-orders/${order.id}`}
+                    className="text-xs text-blue-600 hover:underline flex items-center gap-1 ml-auto mt-1 justify-end"
+                  >
+                    View Details <ChevronRight size={12} />
+                  </Link>
+                </div>
               </div>
-            )}
-          </div>
-        ))}
+
+              {/* Delivery Banner */}
+              {shipGroup && (
+                <div className="mx-5 mb-4 flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-lg px-4 py-2.5">
+                  <Truck size={16} className="text-blue-500 flex-shrink-0" />
+                  <span className="text-xs font-semibold text-blue-700">In Transit</span>
+                  <span className="text-xs text-gray-500">{shipGroup.dateLabel}</span>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

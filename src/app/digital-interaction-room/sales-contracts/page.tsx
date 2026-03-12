@@ -1,54 +1,8 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
-import { Search, Download, FileSignature, AlertCircle, CheckCircle2, Clock } from "lucide-react";
-
-const contracts = [
-  {
-    id: "CTR-2025-0042",
-    title: "Enterprise Fleet Supply Agreement",
-    customer: "AeroLogistics International",
-    start: "Jan 1, 2025",
-    end: "Dec 31, 2025",
-    value: 248000.0,
-    status: "Active",
-  },
-  {
-    id: "CTR-2025-0039",
-    title: "Annual Maintenance & Support Contract",
-    customer: "SkyInspect Solutions Inc.",
-    start: "Mar 1, 2025",
-    end: "Feb 28, 2026",
-    value: 45000.0,
-    status: "Active",
-  },
-  {
-    id: "CTR-2025-0031",
-    title: "Drone Surveillance Services Agreement",
-    customer: "Federal Infrastructure Bureau",
-    start: "Jun 1, 2025",
-    end: "May 31, 2026",
-    value: 120000.0,
-    status: "Pending Signature",
-  },
-  {
-    id: "CTR-2024-0088",
-    title: "Fleet Replacement Program - Phase 2",
-    customer: "Industrial Patrol Systems",
-    start: "Sep 1, 2024",
-    end: "Aug 31, 2025",
-    value: 310000.0,
-    status: "Expiring Soon",
-  },
-  {
-    id: "CTR-2024-0055",
-    title: "Standard Supply & Distribution Contract",
-    customer: "Northern Grid Authority",
-    start: "Jan 1, 2024",
-    end: "Dec 31, 2024",
-    value: 89500.0,
-    status: "Expired",
-  },
-];
+import { Search, Download, FileSignature, AlertCircle, CheckCircle2, Clock, ChevronRight } from "lucide-react";
+import { dirContracts } from "@/lib/mock-data/dir-contracts";
 
 function StatusBadge({ status }: { status: string }) {
   const map: Record<string, { color: string; icon: React.ReactNode }> = {
@@ -69,7 +23,7 @@ export default function SalesContractsPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All Status");
 
-  const filtered = contracts.filter((c) => {
+  const filtered = dirContracts.filter((c) => {
     const ms =
       c.id.toLowerCase().includes(search.toLowerCase()) ||
       c.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -165,6 +119,12 @@ export default function SalesContractsPage() {
                     Renew
                   </button>
                 )}
+                <Link
+                  href={`/digital-interaction-room/sales-contracts/${c.id}`}
+                  className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline font-medium"
+                >
+                  View Details <ChevronRight size={12} />
+                </Link>
               </div>
             </div>
           </div>
