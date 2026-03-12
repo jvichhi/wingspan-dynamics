@@ -6,12 +6,12 @@ import { ChevronRight, ChevronLeft, Tag, Truck, HeadphonesIcon, ArrowRight, Shop
 
 const categories = [
   { name: "Drones", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80", href: "/industries/agriculture" },
-  { name: "Attachments", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=120&q=80", href: "/industries/agriculture" },
-  { name: "Batteries", image: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=120&q=80", href: "/industries/agriculture" },
-  { name: "Sensors", image: "https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=120&q=80", href: "/industries/agriculture" },
+  { name: "Attachments", image: "https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=120&q=80", href: "/industries/agriculture" },
+  { name: "Batteries", image: "https://images.unsplash.com/photo-1611788366747-43da4fffdf5d?w=120&q=80", href: "/industries/agriculture" },
+  { name: "Sensors", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80", href: "/industries/agriculture" },
   { name: "Replacements", image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=120&q=80", href: "/industries/agriculture" },
-  { name: "Remotes", image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=120&q=80", href: "/industries/agriculture" },
-  { name: "Cameras", image: "https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?w=120&q=80", href: "/industries/agriculture" },
+  { name: "Remotes", image: "https://images.unsplash.com/photo-1599507593499-a3f7d7d97667?w=120&q=80", href: "/industries/agriculture" },
+  { name: "Cameras", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=120&q=80", href: "/industries/agriculture" },
   { name: "Cargo containers", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=120&q=80", href: "/industries/agriculture" },
 ];
 
