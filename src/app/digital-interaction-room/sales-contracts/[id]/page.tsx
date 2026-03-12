@@ -87,7 +87,7 @@ export default function ContractDetailPage({ params }: { params: Promise<{ id: s
           </div>
           <div>
             <p className="text-xs text-gray-400 mb-0.5">Payment Terms</p>
-            <p className="text-sm font-semibold text-gray-700">Net 30</p>
+            <p className="text-sm font-semibold text-gray-700">{c.paymentTerms}</p>
           </div>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function ContractDetailPage({ params }: { params: Promise<{ id: s
             <h2 className="text-sm font-bold text-gray-700 mb-4">Billing</h2>
             <dl className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3">
               {[
-                ["Payment Terms", "Net 30"],
+                ["Payment Terms", c.paymentTerms],
                 ["Pricing Date", c.pricingDate],
                 ["Billing Date", c.billingDate],
                 ["Currency", c.currency],
@@ -168,6 +168,60 @@ export default function ContractDetailPage({ params }: { params: Promise<{ id: s
                 </div>
               ))}
             </dl>
+          </div>
+
+          {/* Payment & Credit */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <h2 className="text-sm font-bold text-gray-700 mb-4">Payment &amp; Credit</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Credit Status */}
+              <div className="flex flex-col gap-1">
+                <p className="text-xs text-gray-400">Credit Status</p>
+                <span
+                  className={`inline-flex items-center gap-1.5 text-sm font-semibold w-fit px-2.5 py-1 rounded-full ${
+                    c.creditStatus === "Approved"
+                      ? "bg-green-100 text-green-700"
+                      : c.creditStatus === "Review"
+                      ? "bg-yellow-100 text-yellow-700"
+                      : "bg-red-100 text-red-600"
+                  }`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      c.creditStatus === "Approved"
+                        ? "bg-green-500"
+                        : c.creditStatus === "Review"
+                        ? "bg-yellow-500"
+                        : "bg-red-500"
+                    }`}
+                  />
+                  {c.creditStatus}
+                </span>
+              </div>
+              {/* Credit Limit */}
+              <div>
+                <p className="text-xs text-gray-400 mb-1">Credit Limit</p>
+                <p className="text-sm font-semibold text-gray-700">${fmt(c.creditLimit)} {c.currency}</p>
+                {/* utilisation bar */}
+                <div className="mt-2 h-1.5 rounded-full bg-gray-100 w-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-blue-500"
+                    style={{ width: `${Math.min(100, Math.round((c.creditExposure / c.creditLimit) * 100))}%` }}
+                  />
+                </div>
+                <p className="text-xs text-gray-400 mt-1">
+                  {Math.round((c.creditExposure / c.creditLimit) * 100)}% utilized
+                </p>
+              </div>
+              {/* Credit Exposure */}
+              <div>
+                <p className="text-xs text-gray-400 mb-1">Credit Exposure</p>
+                <p className="text-sm font-semibold text-gray-700">${fmt(c.creditExposure)} {c.currency}</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  ${fmt(c.creditLimit - c.creditExposure)} {c.currency} available
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}

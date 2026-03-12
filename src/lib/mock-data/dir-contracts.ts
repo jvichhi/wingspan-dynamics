@@ -43,6 +43,11 @@ export interface DirContract {
   shipToParty: string;
   shipToPartyId: string;
   shipToAddress: string;
+  // Payment & Credit
+  paymentTerms: string;
+  creditLimit: number;
+  creditExposure: number;
+  creditStatus: string;
   // Terms
   incoterms: string;
   incotermsVersion: string;
@@ -90,6 +95,10 @@ export const dirContracts: DirContract[] = [
     shipToParty: "AeroLogistics International – Operations",
     shipToPartyId: "10200043",
     shipToAddress: "4800 Commerce Gateway Dr, Suite 200, Houston, TX 77032",
+    paymentTerms: "Net 30",
+    creditLimit: 500000,
+    creditExposure: 248000,
+    creditStatus: "Approved",
     incoterms: "Delivered at Place (DAP)",
     incotermsVersion: "Incoterms 2020",
     incotermsLocation1: "Houston, TX",
@@ -140,6 +149,10 @@ export const dirContracts: DirContract[] = [
     shipToParty: "SkyInspect Solutions Inc. – HQ",
     shipToPartyId: "10200040",
     shipToAddress: "2201 Technology Pkwy, Floor 3, Atlanta, GA 30339",
+    paymentTerms: "Net 30",
+    creditLimit: 100000,
+    creditExposure: 45000,
+    creditStatus: "Approved",
     incoterms: "Ex Works (EXW)",
     incotermsVersion: "Incoterms 2020",
     incotermsLocation1: "Atlanta, GA",
@@ -188,6 +201,10 @@ export const dirContracts: DirContract[] = [
     shipToParty: "Federal Infrastructure Bureau – Field Ops",
     shipToPartyId: "10200032",
     shipToAddress: "1600 Pennsylvania Ave NW, Washington, DC 20500",
+    paymentTerms: "Net 45",
+    creditLimit: 250000,
+    creditExposure: 120000,
+    creditStatus: "Approved",
     incoterms: "Delivered Duty Paid (DDP)",
     incotermsVersion: "Incoterms 2020",
     incotermsLocation1: "Washington, DC",
@@ -235,6 +252,10 @@ export const dirContracts: DirContract[] = [
     shipToParty: "Industrial Patrol Systems – Depot",
     shipToPartyId: "10200089",
     shipToAddress: "9100 Industrial Way, Building C, Dallas, TX 75247",
+    paymentTerms: "Net 30",
+    creditLimit: 600000,
+    creditExposure: 310000,
+    creditStatus: "Approved",
     incoterms: "Free on Board (FOB)",
     incotermsVersion: "Incoterms 2020",
     incotermsLocation1: "Dallas, TX",
@@ -284,6 +305,10 @@ export const dirContracts: DirContract[] = [
     shipToParty: "Northern Grid Authority – Operations",
     shipToPartyId: "10200056",
     shipToAddress: "3300 Power Grid Ave, Minneapolis, MN 55401",
+    paymentTerms: "Net 30",
+    creditLimit: 150000,
+    creditExposure: 0,
+    creditStatus: "Approved",
     incoterms: "Ex Works (EXW)",
     incotermsVersion: "Incoterms 2020",
     incotermsLocation1: "Minneapolis, MN",
